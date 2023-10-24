@@ -46,10 +46,9 @@ export GNUPGHOME=${XDG_DATA_HOME}/gnupg
 
 ZSH_STATE_DIR=${XDG_STATE_HOME}/zsh
 LOCAL_BIN_DIR=${HOME}/.local/bin
-
-# Try to find Homebrew
 BREW_PATH=""
 
+# Try to find Homebrew
 if [ -d /usr/local/Homebrew ]; then
     BREW_PATH=/usr/local/Homebrew
 elif [ -d /opt/homebrew ]; then
@@ -78,5 +77,4 @@ fi
 if [ -d ${LOCAL_BIN_DIR} ]; then
     export PATH=$PATH:${LOCAL_BIN_DIR}
 fi
-
 
