@@ -7,6 +7,10 @@ export XDG_STATE_HOME=${HOME}/.local/state
 export XDG_CACHE_HOME=${HOME}/.cache
 export XDG_RUNTIME_DIR=/run/user/${UID}
 
+# Environment
+export LANG=en_US.UTF-8
+export EDITOR='vim'
+
 # ZSH
 export ZSH=${XDG_DATA_HOME}/oh-my-zsh
 export HISTFILE=${XDG_STATE_HOME}/zsh/history
@@ -40,20 +44,39 @@ export GNUPGHOME=${XDG_DATA_HOME}/gnupg
 
 # ACTIONS #####################################################################
 
+ZSH_STATE_DIR=${XDG_STATE_HOME}/zsh
+LOCAL_BIN_DIR=${HOME}/.local/bin
+
+# Try to find Homebrew
+BREW_PATH=""
+
+if [ -d /usr/local/Homebrew ]; then
+    BREW_PATH=/usr/local/Homebrew
+elif [ -d /opt/homebrew ]; then
+    BREW_PATH=/opt/homebrew
+elif [ -d /home/linuxbrew/.linuxbrew ]; then
+    BREW_PATH=/home/linuxbrew/.linuxbrew
+elif [ -d ${HOME}/homebrew ]; then
+    BREW_PATH=${HOME}/homebrew
+fi
+
 # Create ZSH state directory and HISTFILE
-if [ ! -d ${XDG_STATE_HOME}/zsh ]; then
-    mkdir -p ${XDG_STATE_HOME}/zsh
+if [ ! -d ${ZSH_STATE_DIR} ]; then
+    mkdir -p ${ZSH_STATE_DIR}
 fi
 
 if [ ! -f $HISTFILE ]; then
     touch $HISTFILE
 fi
 
-# Add local path
-if [ -d ${HOME}/.local/bin ]; then
-    export PATH=$PATH:${HOME}/.local/bin
+# Add Homebrew to env
+if [ -n "$BREW_PATH" ]; then
+    eval "$(${BREW_PATH}/bin/brew shellenv)"
 fi
 
-# Add Homebrew to env
-eval "$(/usr/local/bin/brew shellenv)"
+# Add local path
+if [ -d ${LOCAL_BIN_DIR} ]; then
+    export PATH=$PATH:${LOCAL_BIN_DIR}
+fi
+
 
