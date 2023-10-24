@@ -1,3 +1,5 @@
+# EXPORTS #####################################################################
+
 # XDG Base Directory Specification Paths
 export XDG_DATA_HOME=${HOME}/.local/share
 export XDG_CONFIG_HOME=${HOME}/.config
@@ -9,9 +11,6 @@ export XDG_RUNTIME_DIR=/run/user/${UID}
 export ZSH=${XDG_DATA_HOME}/oh-my-zsh
 export HISTFILE=${XDG_STATE_HOME}/zsh/history
 export ZDOTDIR=${XDG_CONFIG_HOME}/zsh
-
-# Homebrew
-eval "$(/usr/local/bin/brew shellenv)"
 
 # Ruby
 export GEM_HOME=${XDG_DATA_HOME}/gem
@@ -35,3 +34,26 @@ export KERAS_HOME=${XDG_STATE_HOME}/keras
 
 # libdvdcss
 export DVDCSS_CACHE=${XDG_DATA_HOME}/dvdcss
+
+# GNUPG
+export GNUPGHOME=${XDG_DATA_HOME}/gnupg
+
+# ACTIONS #####################################################################
+
+# Create ZSH state directory and HISTFILE
+if [ ! -d ${XDG_STATE_HOME}/zsh ]; then
+    mkdir -p ${XDG_STATE_HOME}/zsh
+fi
+
+if [ ! -f $HISTFILE ]; then
+    touch $HISTFILE
+fi
+
+# Add local path
+if [ -d ${HOME}/.local/bin ]; then
+    export PATH=$PATH:${HOME}/.local/bin
+fi
+
+# Add Homebrew to env
+eval "$(/usr/local/bin/brew shellenv)"
+
