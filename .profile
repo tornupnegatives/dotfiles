@@ -42,6 +42,9 @@ export DVDCSS_CACHE=${XDG_DATA_HOME}/dvdcss
 # GNUPG
 export GNUPGHOME=${XDG_DATA_HOME}/gnupg
 
+# NVIDIA
+export CUDA_CACHE_PATH=${XDG_CACHE_HOME}/nv
+
 # ACTIONS #####################################################################
 
 ZSH_STATE_DIR=${XDG_STATE_HOME}/zsh
