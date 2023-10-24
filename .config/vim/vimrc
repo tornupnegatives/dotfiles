@@ -27,6 +27,9 @@ set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
 
 " Customization """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Enable backspace key
+set backspace=indent,eol,start
+
 " Detect filetype for indents
 filetype on
 filetype indent on
