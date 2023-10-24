@@ -1,9 +1,26 @@
+#!/usr/bin/env bash
+
 # Install Homebrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+if [ -x brew ]; then
+    echo "@ Homebrew not found. Installing..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
 
 # Change default shell to zsh
-chsh -s $(which zsh)
+if [[ "$SHELL" != *"zsh"* ]]; then
+    echo "@ Changing default shell to ZSH"
+    chsh -s $(which zsh)
+fi
+
+# Only symlink .profile -> .zprofile on macOS
+if [[ $OSTYPE == 'darwin'* ]]; then
+    if [[ ! -e "${HOME}/.zprofile" ]]; then
+        ln -s ${HOME}/.profile ${HOME}/.zprofile
+    fi
+fi
 
 # Install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+if [ -x omz ]; then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
 
