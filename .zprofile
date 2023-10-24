@@ -10,6 +10,9 @@ export ZSH=${XDG_DATA_HOME}/oh-my-zsh
 export HISTFILE=${XDG_STATE_HOME}/zsh/history
 export ZDOTDIR=${XDG_CONFIG_HOME}/zsh
 
+# Homebrew
+eval "$(/usr/local/bin/brew shellenv)"
+
 # Ruby
 export GEM_HOME=${XDG_DATA_HOME}/gem
 export GEM_SPEC_CACHE=${XDG_CACHE_HOME}/gem
