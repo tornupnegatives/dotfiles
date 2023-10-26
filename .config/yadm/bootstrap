@@ -1,34 +1,18 @@
 #!/usr/bin/env bash
 
+# Install dependencies (Linux only)
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    sudo apt update
+    sudo apt upgrade -y
+    sudo apt install curl build-essential vim zsh -y
+fi
+
 # Install Homebrew
 if ! command -v brew > /dev/null; then
     echo "@ Homebrew not found. Installing..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 else
     echo "@ Homebrew found. No action needed"
-fi
-
-# Install vim
-if ! command -v vim > /dev/null; then
-    echo "@ Vim not found. Installing..."
-    brew install vim
-else
-    echo "@ Vim found. No action needed"
-fi
-
-# Change default shell to zsh
-if [[ "$SHELL" != *"zsh"* ]]; then
-    echo "@ Changing default shell to ZSH"
-    chsh -s $(which zsh)
-else
-    echo "@ The default shell is ZSH. No action needed"
-fi
-
-# Only symlink .profile -> .zprofile on macOS
-if [[ $OSTYPE == 'darwin'* ]]; then
-    if [[ ! -e "${HOME}/.zprofile" ]]; then
-        ln -s ${HOME}/.profile ${HOME}/.zprofile
-    fi
 fi
 
 # Install oh-my-zsh
@@ -39,3 +23,15 @@ else
     echo "@ oh-my-zsh found. No action needed"
 fi
 
+# Remove any residual Bash files
+mkdir -p ${HOME}/DELETE_ME
+for f in ${HOME}/.bash* do
+  mv "$f" ${HOME}/DELETE_ME/.
+done
+
+# Only symlink .profile -> .zprofile on macOS
+if [[ $OSTYPE == 'darwin'* ]]; then
+    if [[ ! -e "${HOME}/.zprofile" ]]; then
+        ln -s ${HOME}/.profile ${HOME}/.zprofile
+    fi
+fi
