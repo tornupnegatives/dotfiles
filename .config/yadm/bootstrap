@@ -29,9 +29,8 @@ for f in ${HOME}/.bash* do
   mv "$f" ${HOME}/DELETE_ME/.
 done
 
-# Only symlink .profile -> .zprofile on macOS
-if [[ $OSTYPE == 'darwin'* ]]; then
-    if [[ ! -e "${HOME}/.zprofile" ]]; then
-        ln -s ${HOME}/.profile ${HOME}/.zprofile
-    fi
+# Symlink .profile -> .zprofile for macOS shell or Linux login shell
+if [[ ! -e "${HOME}/.zprofile" ]]; then
+    ln -s ${HOME}/.profile ${HOME}/.zprofile
 fi
+
