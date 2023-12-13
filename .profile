@@ -81,3 +81,13 @@ if [ -d ${LOCAL_BIN_DIR} ]; then
     export PATH=$PATH:${LOCAL_BIN_DIR}
 fi
 
+# Add Python site dir to path (macOS)
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    export PATH="$PATH:${HOME}/Library/Python/3.9/bin"
+fi
+
+# ALIASES #####################################################################
+
+alias sshconfig="${EDITOR} ${HOME}/.ssh/config"
+alias zshrc="${EDITOR} ${ZDOTDIR}/.zshrc"
+
