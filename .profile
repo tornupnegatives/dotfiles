@@ -84,7 +84,7 @@ fi
 # Add Ruby Gems to path
 RUBY_GEMS_DIR=${XDG_DATA_HOME}/gem/bin
 
-if [ -d ${RUBY_GEMS__DIR}/ ]; then
+if [ -d ${RUBY_GEMS_DIR}/ ]; then
     export PATH=$PATH:${RUBY_GEMS_DIR}
 fi
 
