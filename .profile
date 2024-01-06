@@ -93,6 +93,15 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     export PATH="$PATH:${HOME}/Library/Python/3.9/bin"
 fi
 
+OPENJDK_DIR=/usr/local/opt/openjdk/bin
+
+# Add Java to path (macOS)
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    if [ -d ${OPENJDK_DIR}/ ]; then
+        export PATH="/usr/local/opt/openjdk/bin:$PATH"
+    fi
+fi
+
 # ALIASES #####################################################################
 
 alias sshconfig="${EDITOR} ${HOME}/.ssh/config"
