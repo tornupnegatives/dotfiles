@@ -100,6 +100,7 @@ export LESSHISTFILE=${XDG_CACHE_HOME}/less/history
 export DVDCSS_CACHE=${XDG_DATA_HOME}/dvdcss
 export GNUPGHOME=${XDG_DATA_HOME}/gnupg
 export CUDA_CACHE_PATH=${XDG_CACHE_HOME}/nv
+export XAUTHORITY=${XDG_RUNTIME_DIR}/Xauthority
 
 # -------
 # Aliases
