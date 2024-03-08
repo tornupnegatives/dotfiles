@@ -22,6 +22,7 @@ fi
 # ZSH
 # ---
 export ZSH=${XDG_DATA_HOME}/oh-my-zsh
+export ZSH_CUSTOM=${XDG_DATA_HOME}/zsh
 export HISTFILE=${XDG_STATE_HOME}/zsh/history
 export ZDOTDIR=${XDG_CONFIG_HOME}/zsh
 
