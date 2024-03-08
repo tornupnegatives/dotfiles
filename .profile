@@ -107,3 +107,11 @@ export XAUTHORITY=${XDG_RUNTIME_DIR}/Xauthority
 # -------
 alias sshconfig="${EDITOR} ${HOME}/.ssh/config"
 alias zshrc="${EDITOR} ${ZDOTDIR}/.zshrc"
+
+# --------------------
+# Aliases (Linux-only)
+# --------------------
+if [[ "$OSTYPE" == "linux"* ]]; then
+    alias update="sudo apt update && sudo apt upgrade -y && sudo snap refresh"
+fi
+
