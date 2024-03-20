@@ -114,5 +114,7 @@ alias zshrc="${EDITOR} ${ZDOTDIR}/.zshrc"
 # --------------------
 if [[ "$OSTYPE" == "linux"* ]]; then
     alias update="sudo apt update && sudo apt upgrade -y && sudo snap refresh"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    alias update="brew update && brew upgrade && softwareupdate -ia"
 fi
 
