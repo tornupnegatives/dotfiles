@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 # Be sure to run as target user!
-# $ sh -c -u $(whoami) "<script>"
+# $ chmod +x bootstrap-ubuntu
+# $ sudo -u $(whoami) ./bootstrap-ubuntu
 
 # Bring system up-to-date and install recommended drivers
 sudo apt update && sudo apt upgrade -y && sudo ubuntu-drivers install
@@ -13,18 +14,18 @@ sudo apt-mark showmanual >> ~/.apt-init.txt
 sudo apt remove --purge --autoremove -y snapd
 rm -rf ~/snap
 
-sudo echo -e \
-    "Package: snapd\nPin: release a=*\nPin-Priority: -10" \
-    >> /etc/apt/preferences.d/nosnap
+su -c "echo -e " \
+    "'Package: snapd\nPin: release a=*\nPin-Priority: -10'" \
+    ">> /etc/apt/preferences.d/nosnap"
 
 # Install GNOME Software Center and Flatpak
 sudo apt install -y gnome-software flatpak gnome-software-plugin-flatpak
 flatpak remote-add flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
 # Fix Intel speaker buzzing
-sudo echo -e \
-    "\noptions snd-hda-intel power_save=0 power_save_controller=N" \
-    >> /etc/modprobe.d/alsa-base.conf
+su -c "echo -e " \
+    "'\noptions snd-hda-intel power_save=0 power_save_controller=N'" \
+    ">> /etc/modprobe.d/alsa-base.conf"
 
 # Install essential packages
 sudo apt install -y nala
@@ -43,5 +44,9 @@ fi
 wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
 chmod +x install.sh
 sh -c \
-    "ZDOTDIR='$HOME/.config/zsh' ZSH='$HOME/.local/share/oh-my-zsh'" \
+    "export ZDOTDIR='$HOME/.config/zsh' &&" \
+    "export ZSH='$HOME/.local/share/oh-my-zsh' &&" \
     "~/install.sh"
+
+# Symlink profile for use with ZSH
+ln -s ~/.profile ~/.zprofile
