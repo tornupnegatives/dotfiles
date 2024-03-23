@@ -30,7 +30,12 @@ sudo sh -c "nala install -y build-essential git vim yadm zsh"
 # Clone DOTFILES repository
 sh -c "yadm clone https://github.com/tornupnegatives/dotfiles.git"
 
+# Set up ZSH directories
+if [ ! -d "$HOME/.config/zsh" ]; then
+    mkdir -p "$HOME/.config/zsh"
+fi
+
 # Install oh-my-zsh
 wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
-chmod +x install.sh
-source ~/.profile && ./install.sh
+sh -c \
+    "ZDOTDIR='$HOME/.config/zsh' ZSH='$HOME/.local/share/oh-my-zsh' install.sh"
