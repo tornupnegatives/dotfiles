@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Be sure to run as target user!
+# $ sh -c -u $(whoami) "<script>"
+
 # Bring system up-to-date and install recommended drivers
 sudo apt update && sudo apt upgrade -y && sudo ubuntu-drivers install
 
@@ -27,8 +30,9 @@ sudo echo -e \
 sudo apt install -y nala
 sudo sh -c "nala install -y build-essential git vim yadm zsh"
 
-# Clone DOTFILES repository
+# Clone DOTFILES repository and override existing profile
 sh -c "yadm clone https://github.com/tornupnegatives/dotfiles.git"
+sh -c "yadm checkout -- ~/.profile"
 
 # Set up ZSH directories
 if [ ! -d "$HOME/.config/zsh" ]; then
@@ -37,5 +41,7 @@ fi
 
 # Install oh-my-zsh
 wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+chmod +x install.sh
 sh -c \
-    "ZDOTDIR='$HOME/.config/zsh' ZSH='$HOME/.local/share/oh-my-zsh' install.sh"
+    "ZDOTDIR='$HOME/.config/zsh' ZSH='$HOME/.local/share/oh-my-zsh'" \
+    "~/install.sh"
