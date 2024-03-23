@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+# Bring system up-to-date and install recommended drivers
+sudo apt update && sudo apt upgrade && sudo ubuntu-drivers install
+
+# Dump original APT state for reference
+sudo apt-mark showmanual >> ~/.apt-init.txt
+
+# Uninstall and disable snap
+sudo snap remove $(snap list | awk '!/^Name|^core/ {print $1}')
+
+sudo systemctl disable snapd.service
+sudo systemctl disable snapd.socket
+sudo systemctl disable snapd.seeded.service
+
+sudo apt remove --purge --autoremove -y snapd gnome-software-plugin-snap
+sudo rm -rf /var/cache/snapd/
+rm -rf ~/snap
+
+sudo echo -e "Package: snapd\nPin: release a=*\nPin-Priority: -10" >> /etc/apt/preferences.d/nosnap
+
+# Install GNOME Software Center and Flatpak
+sudo apt install --install-suggests gnome-software flatpak gnome-software-plugin-flatpak
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+# Fix Intel speaker buzzing
+sudo echo -e "\noptions snd-hda-intel power_save=0 power_save_controller=N" >> /etc/modprobe.d/alsa-base.conf
+
+# Install essential packages
+sudo apt install -y nala
+sudo nala install -y build-essential git vim xdg-ninja yadm zsh
+
+# Clone DOTFILES repository
+yadm clone https://github.com/tornupnegatives/dotfiles.git
+
+# Install oh-my-zsh
+curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh >> ~/.install-oh-my-zsh.sh
+chmod +x ~/.install-oh-my-zsh.sh
+source ~/.profile && ~/.install-oh-my-zsh.sh
