@@ -34,6 +34,6 @@ sudo nala install -y build-essential git vim xdg-ninja yadm zsh
 yadm clone https://github.com/tornupnegatives/dotfiles.git
 
 # Install oh-my-zsh
-curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh >> ~/.install-oh-my-zsh.sh
-chmod +x ~/.install-oh-my-zsh.sh
-source ~/.profile && ~/.install-oh-my-zsh.sh
+wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+chmod +x install.sh
+source ~/.profile && ./install.sh
