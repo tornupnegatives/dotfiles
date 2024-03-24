@@ -20,14 +20,16 @@ sudo apt remove --purge --autoremove -y snapd
 sudo rm -rf /var/cache/snapd/
 rm -rf ~/snap
 
-sudo echo -e "Package: snapd\nPin: release a=*\nPin-Priority: -10" >> /etc/apt/preferences.d/nosnap
+echo -e "Package: snapd\nPin: release a=*\nPin-Priority: -10" | \
+    sudo tee /etc/apt/preferences.d/nosnap
 
 # Install GNOME Software Center and Flatpak
 sudo apt install -y gnome-software flatpak gnome-software-plugin-flatpak
 flatpak remote-add flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
 # Fix Intel speaker buzzing
-sudo echo -e "\noptions snd-hda-intel power_save=0 power_save_controller=N" >> /etc/modprobe.d/alsa-base.conf
+echo -e "\noptions snd-hda-intel power_save=0 power_save_controller=N" | \
+    sudo tee /etc/modprobe.d/alsa-base.conf
 
 # Install essential packages
 sudo apt install -y nala
@@ -48,4 +50,4 @@ fi
 # Install oh-my-zsh
 wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
 chmod +x install.sh
-sh -c "export ZDOTDIR='$HOME/.config/zs'h && export ZSH='$HOME/.local/share/oh-my-zsh' && ~/install.sh"
+ZDOTDIR='$HOME/.config/zsh' ZSH='$HOME/.local/share/oh-my-zsh' sh -c "~/install.sh"
