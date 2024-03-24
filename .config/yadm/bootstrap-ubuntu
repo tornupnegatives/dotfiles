@@ -51,5 +51,5 @@ fi
 wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
 chmod +x install.sh
 
-ZDOTDIR="$HOME/.config/zsh" ZSH="$HOME/.local/share/oh-my-zsh" \
+ZDOTDIR="$HOME/.config/zsh" XDG_DATA_HOME="$HOME/.local/share" \
     sh -c "~/install.sh"
