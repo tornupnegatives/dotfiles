@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+# Be sure to run as target user!
+# $ chmod +x bootstrap-ubuntu
+# $ sudo -u $(whoami) ./bootstrap-ubuntu
+
+# Bring system up-to-date and install recommended drivers
+sudo apt update && sudo apt upgrade -y && sudo ubuntu-drivers install
+
+# Dump original APT state for reference
+sudo apt-mark showmanual >> ~/.apt-init.txt
+
+# Uninstall and disable snap
+sudo systemctl disable snapd.service
+sudo systemctl disable snapd.socket
+sudo systemctl disable snapd.seeded.service
+
+sudo apt remove --purge --autoremove -y snapd
+
+sudo rm -rf /var/cache/snapd/
+rm -rf ~/snap
+
+echo -e "Package: snapd\nPin: release a=*\nPin-Priority: -10" | \
+    sudo tee /etc/apt/preferences.d/nosnap
+
+# Fix Intel speaker buzzing
+echo -e "\noptions snd-hda-intel power_save=0 power_save_controller=N" | \
+    sudo tee /etc/modprobe.d/alsa-base.conf
+
+# Install GNOME Software Center and Flatpak
+sudo apt install -y gnome-software flatpak gnome-software-plugin-flatpak
+flatpak remote-add flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+# Install essential packages
+sudo apt install -y nala
+sudo sh -c "nala install -y build-essential git vim yadm zsh"
+
+# Clone DOTFILES repository and override existing profile
+sh -c "yadm clone https://github.com/tornupnegatives/dotfiles.git"
+sh -c "yadm checkout -- ~/.profile"
+
+# Set up ZSH directories
+if [ ! -d "$HOME/.config/zsh" ]; then
+    mkdir -p "$HOME/.config/zsh"
+fi
+
+# Install oh-my-zsh
+wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+chmod +x install.sh
+
+ZDOTDIR="$HOME/.config/zsh" XDG_DATA_HOME="$HOME/.local/share" \
+    sh -c "~/install.sh"
+
+# Cleanup
+rm -f ~/.bash* ~/install.sh ~/.wget* ~/.zsh_history
