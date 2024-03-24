@@ -22,7 +22,7 @@ rm -rf ~/snap
 
 echo -e "Package: snapd\nPin: release a=*\nPin-Priority: -10" | \
     sudo tee /etc/apt/preferences.d/nosnap
-    
+
 # Fix Intel speaker buzzing
 echo -e "\noptions snd-hda-intel power_save=0 power_save_controller=N" | \
     sudo tee /etc/modprobe.d/alsa-base.conf
@@ -45,10 +45,6 @@ ln -s ~/.profile ~/.zprofile
 # Set up ZSH directories
 if [ ! -d "$HOME/.config/zsh" ]; then
     mkdir -p "$HOME/.config/zsh"
-fi
-
-if [ ! -d "$HOME/.local/share/oh-my-zsh" ]; then
-    mkdir -p "$HOME/.local/share/oh-my-zsh"
 fi
 
 # Install oh-my-zsh
