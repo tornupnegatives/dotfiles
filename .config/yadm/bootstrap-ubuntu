@@ -39,9 +39,6 @@ sudo sh -c "nala install -y build-essential git vim yadm zsh"
 sh -c "yadm clone https://github.com/tornupnegatives/dotfiles.git"
 sh -c "yadm checkout -- ~/.profile"
 
-# Symlink profile for use with ZSH
-ln -s ~/.profile ~/.zprofile
-
 # Set up ZSH directories
 if [ ! -d "$HOME/.config/zsh" ]; then
     mkdir -p "$HOME/.config/zsh"
@@ -53,3 +50,6 @@ chmod +x install.sh
 
 ZDOTDIR="$HOME/.config/zsh" XDG_DATA_HOME="$HOME/.local/share" \
     sh -c "~/install.sh"
+
+# Cleanup
+rm -f ~/.bash* ~/install.sh ~/.wget* ~/.zsh_history
