@@ -38,6 +38,7 @@ sudo sh -c "nala install -y build-essential git vim yadm zsh"
 # Clone DOTFILES repository and override existing profile
 sh -c "yadm clone https://github.com/tornupnegatives/dotfiles.git"
 sh -c "yadm checkout -- ~/.profile"
+ln -s ~/.profile ~/.zprofile
 
 # Set up ZSH directories
 if [ ! -d "$HOME/.config/zsh" ]; then
