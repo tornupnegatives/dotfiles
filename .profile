@@ -24,7 +24,7 @@ export HISTFILE="$XDG_STATE_HOME"/zsh/history
 
 # Dump ZSH completions in state dir
 if [ ! -d "$XDG_STATE_HOME/zsh" ]; then
-    mkdir -p "$ZSH_STATE_DIR"
+    mkdir -p "$XDG_STATE_HOME/zsh"
 fi
 
 # Dump ZSH history in state dir
