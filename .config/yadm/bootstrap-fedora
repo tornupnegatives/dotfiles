@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+# Be sure to run as target user!
+# $ chmod +x bootstrap-ubuntu
+# $ sudo -u $(whoami) ./bootstrap-ubuntu
+
+# Bring system up-to-date
+sudo dnf update && sudo dnf upgrade -y
+
+# Fix Intel speaker buzzing
+echo -e "\noptions snd-hda-intel power_save=0 power_save_controller=N" | \
+    sudo tee /etc/modprobe.d/alsa-base.conf
+
+# Install essential packages
+sudo dnf install -y make gcc gcc-c++ git vim zsh
+
+# Install yadm
+sudo dnf config-manager --add-repo \
+    https://download.opensuse.org/repositories/home:TheLocehiliosan:yadm/Fedora_40/home:TheLocehiliosan:yadm.repo
+
+sudo dnf install yadm
+
+# Clone DOTFILES repository and override existing profile
+sh -c "yadm clone https://github.com/tornupnegatives/dotfiles.git"
+sh -c "yadm checkout -- ~/.profile"
+ln -s ~/.profile ~/.zprofile
+
+# Set up ZSH directories
+if [ ! -d "$HOME/.config/zsh" ]; then
+    mkdir -p "$HOME/.config/zsh"
+fi
+
+# Install oh-my-zsh
+wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+chmod +x install.sh
+
+ZDOTDIR="$HOME/.config/zsh" XDG_DATA_HOME="$HOME/.local/share" \
+    sh -c "~/install.sh"
+
+# Cleanup
+rm -f ~/.bash* ~/install.sh ~/.wget* ~/.zsh_history
+
