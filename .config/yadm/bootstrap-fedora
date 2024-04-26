@@ -18,7 +18,7 @@ sudo dnf install -y make gcc gcc-c++ git vim zsh
 sudo dnf config-manager --add-repo \
     https://download.opensuse.org/repositories/home:TheLocehiliosan:yadm/Fedora_40/home:TheLocehiliosan:yadm.repo
 
-sudo dnf install yadm
+sudo dnf install -y yadm
 
 # Clone DOTFILES repository and override existing profile
 sh -c "yadm clone https://github.com/tornupnegatives/dotfiles.git"
@@ -38,5 +38,5 @@ ZDOTDIR="$HOME/.config/zsh" XDG_DATA_HOME="$HOME/.local/share" \
     sh -c "~/install.sh"
 
 # Cleanup
-rm -f ~/.bash* ~/install.sh ~/.wget* ~/.zsh_history
+sh -c "rm -f ~/.bash* ~/install.sh ~/.wget* ~/.zsh_history"
 
