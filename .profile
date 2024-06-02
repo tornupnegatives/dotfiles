@@ -65,6 +65,16 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     fi
 fi
 
+# ----
+# Ruby
+# ----
+
+if [ -d /usr/local/opt/ruby/bin ]; then
+    export PATH="/usr/local/opt/ruby/bin:$PATH"
+    export LDFLAGS="-L/usr/local/opt/ruby/lib"
+    export CPPFLAGS="-I/usr/local/opt/ruby/include"
+fi
+
 # -----
 # Other
 # -----
