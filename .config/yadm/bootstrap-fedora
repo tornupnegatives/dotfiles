@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # Be sure to run as target user!
-# $ chmod +x bootstrap-ubuntu
-# $ sudo -u $(whoami) ./bootstrap-ubuntu
+# $ chmod +x bootstrap-fedora
+# $ sudo -u $(whoami) ./bootstrap-fedora
 
 # Bring system up-to-date
 sudo dnf update && sudo dnf upgrade -y
