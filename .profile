@@ -16,6 +16,10 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
+if [ -d "$HOME/.local/lib" ] ; then
+    export LD_LIBRARY_PATH="$HOME/.local/lib"
+fi
+
 # ---
 # ZSH
 # ---
@@ -85,11 +89,11 @@ export LESSHISTFILE=${XDG_CACHE_HOME}/less/history
 export DVDCSS_CACHE=${XDG_DATA_HOME}/dvdcss
 export GNUPGHOME=${XDG_DATA_HOME}/gnupg
 export CUDA_CACHE_PATH=${XDG_CACHE_HOME}/nv
+export DOTNET_CLI_HOME="$XDG_DATA_HOME"/dotnet
 
 # -------
 # Aliases
 # -------
 alias sshconfig="${EDITOR} ${HOME}/.ssh/config"
 alias zshrc="${EDITOR} ${ZDOTDIR}/.zshrc"
-
 
