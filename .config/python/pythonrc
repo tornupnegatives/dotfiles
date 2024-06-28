@@ -20,6 +20,9 @@ def setup_history():
 
     history: Path = state_home / 'python_history'
 
+    if not os.path.exists(history):
+        os.mknod(history)
+
     readline.read_history_file(str(history))
     atexit.register(readline.write_history_file, str(history))
 
