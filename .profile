@@ -12,6 +12,10 @@ export XDG_CACHE_HOME=$HOME/.cache
 export LANG=en_US.UTF-8
 export EDITOR='vim'
 
+if [ -f "$HOME/.bashrc" ] ; then
+    source "$HOME/.bashrc"
+fi
+
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
