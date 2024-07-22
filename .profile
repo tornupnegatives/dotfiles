@@ -1,6 +1,7 @@
 # --------------------------------------
 # XDG Base Directory Specification Paths
 # --------------------------------------
+
 export XDG_DATA_HOME=$HOME/.local/share
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_STATE_HOME=$HOME/.local/state
@@ -9,6 +10,7 @@ export XDG_CACHE_HOME=$HOME/.cache
 # -----------
 # Environment
 # -----------
+
 export LANG=en_US.UTF-8
 export EDITOR='vim'
 
@@ -27,6 +29,7 @@ fi
 # ---
 # ZSH
 # ---
+
 export ZDOTDIR="$HOME"/.config/zsh
 export HISTFILE="$XDG_STATE_HOME"/zsh/history
 
@@ -43,6 +46,7 @@ fi
 # ------
 # Python
 # ------
+
 export PYTHONSTARTUP=${XDG_CONFIG_HOME}/python/pythonrc
 
 # Add macOS Python site dir to PATH
@@ -53,6 +57,7 @@ fi
 # --------
 # Homebrew
 # --------
+
 BREW_PATH=""
 if [ -d /usr/local/Homebrew ]; then
     eval "$(/usr/local/Homebrew/bin/brew shellenv)"
@@ -67,6 +72,7 @@ fi
 # ------------
 # Java (macOS)
 # ------------
+
 if [[ "$OSTYPE" == "darwin"* ]]; then
     if [ -d /usr/local/opt/openjdk/bin ]; then
         export PATH="/usr/local/opt/openjdk/bin:$PATH"
@@ -86,6 +92,7 @@ fi
 # -----
 # Other
 # -----
+
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 export KERAS_HOME=${XDG_STATE_HOME}/keras
 export DOCKER_CONFIG=${XDG_CONFIG_HOME}/docker
@@ -94,10 +101,4 @@ export DVDCSS_CACHE=${XDG_DATA_HOME}/dvdcss
 export GNUPGHOME=${XDG_DATA_HOME}/gnupg
 export CUDA_CACHE_PATH=${XDG_CACHE_HOME}/nv
 export DOTNET_CLI_HOME="$XDG_DATA_HOME"/dotnet
-
-# -------
-# Aliases
-# -------
-alias sshconfig="${EDITOR} ${HOME}/.ssh/config"
-alias zshrc="${EDITOR} ${ZDOTDIR}/.zshrc"
 
