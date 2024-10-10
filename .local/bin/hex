@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+
+"""
+Description: A simple command-line utility to convert integers to hex strings
+Author: Joseph Bellahcen <joeclb@icloud.com>
+"""
+
+import argparse
+
+parser = argparse.ArgumentParser(prog="hex", description="Decimal-to-hex converter")
+parser.add_argument("value", type=int)
+args = parser.parse_args()
+
+print(hex(args.value))
