@@ -1,0 +1,50 @@
+#!/usr/bin/env python3
+
+###############################################################################
+# Name:     file-size
+# Author:   Joseph Bellahcen <joeclb@icloud.com>
+# Desc:     Measures size of file or total size of directory. When measuring a
+#           file, the output of this script matches that of `stat`. However,
+#           when measuring a directory, this script will report the size of
+#           all files in the directory rather than the space occupied by the
+#           directory node itself
+###############################################################################
+
+import argparse
+import os
+import pathlib
+import sys
+
+####################
+# Helper Functions #
+####################
+
+#############
+# CLI Setup #
+#############
+
+parser = argparse.ArgumentParser(
+        prog="file-size",
+        description="Computes size of file or directory of files")
+parser.add_argument("path", type=pathlib.Path)
+
+###############
+# Script Body #
+###############
+
+args = parser.parse_args()
+path = args.path
+
+if not path.exists():
+    print(f"ERROR: No such path '{path}'")
+    exit()
+
+if path.is_dir():
+    # Compute size of all files in directory
+    size = sum(file.stat().st_size for file in path.rglob('*'))
+    print(f"{path}\t:\t{size} total bytes")
+
+else:
+    size = os.path.getsize(path)
+    print(f"{path}\t:\t{size} bytes")
+
