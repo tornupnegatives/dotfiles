@@ -10,25 +10,8 @@ sudo apt update && sudo apt upgrade -y && sudo ubuntu-drivers install
 # Dump original APT state for reference
 sudo apt-mark showmanual >> ~/.apt-init.txt
 
-# Uninstall and disable snap
-sudo systemctl disable snapd.service
-sudo systemctl disable snapd.socket
-sudo systemctl disable snapd.seeded.service
-
-sudo apt remove --purge --autoremove -y snapd
-
-sudo rm -rf /var/cache/snapd/
-rm -rf ~/snap
-
-echo -e "Package: snapd\nPin: release a=*\nPin-Priority: -10" | \
-    sudo tee /etc/apt/preferences.d/nosnap
-
-# Fix Intel speaker buzzing
-echo -e "\noptions snd-hda-intel power_save=0 power_save_controller=N" | \
-    sudo tee /etc/modprobe.d/alsa-base.conf
-
 # Install GNOME Software Center and Flatpak
-sudo apt install -y gnome-software flatpak gnome-software-plugin-flatpak
+sudo apt install -y gnome-software flatpak gnome-software-plugin-flatpak gnome-software-plugin-snap
 flatpak remote-add flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
 # Install essential packages
