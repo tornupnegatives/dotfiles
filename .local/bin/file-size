@@ -19,6 +19,25 @@ import sys
 # Helper Functions #
 ####################
 
+def humanbytes(B):
+    """Return the given bytes as a human friendly KB, MB, GB, or TB string."""
+    B = float(B)
+    KB = float(1024)
+    MB = float(KB ** 2) # 1,048,576
+    GB = float(KB ** 3) # 1,073,741,824
+    TB = float(KB ** 4) # 1,099,511,627,776
+
+    if B < KB:
+        return '{0} {1}'.format(B,'Bytes' if 0 == B > 1 else 'Byte')
+    elif KB <= B < MB:
+        return '{0:.2f} KB'.format(B / KB)
+    elif MB <= B < GB:
+        return '{0:.2f} MB'.format(B / MB)
+    elif GB <= B < TB:
+        return '{0:.2f} GB'.format(B / GB)
+    elif TB <= B:
+        return '{0:.2f} TB'.format(B / TB)
+
 #############
 # CLI Setup #
 #############
@@ -27,6 +46,7 @@ parser = argparse.ArgumentParser(
         prog="file-size",
         description="Computes size of file or directory of files")
 parser.add_argument("path", type=pathlib.Path)
+parser.add_argument("--format", "-f", help="Print in human-readnable format", action="store_true", default=False)
 
 ###############
 # Script Body #
@@ -42,9 +62,11 @@ if not path.exists():
 if path.is_dir():
     # Compute size of all files in directory
     size = sum(file.stat().st_size for file in path.rglob('*'))
-    print(f"{path}\t:\t{size} total bytes")
+    size_str = humanbytes(size) if args.format else str(size) 
+    print(f"{path}\t:\t{size_str} (total)")
 
 else:
     size = os.path.getsize(path)
-    print(f"{path}\t:\t{size} bytes")
+    size_str = humanbytes(size) if args.format else str(size) 
+    print(f"{path}\t:\t{size_str}")
 

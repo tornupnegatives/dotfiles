@@ -1,14 +1,24 @@
 #!/usr/bin/env python3
 
 """
-Description: A simple command-line utility to convert integers to hex strings
+Description: A simple command-line utility to convert between decimal and hex
 Author: Joseph Bellahcen <joeclb@icloud.com>
 """
 
 import argparse
 
-parser = argparse.ArgumentParser(prog="hex", description="Decimal-to-hex converter")
-parser.add_argument("value", type=int)
+parser = argparse.ArgumentParser(prog="hex", description="Decimal-hex converter")
+group = parser.add_mutually_exclusive_group(required=True)
+group.add_argument('-e', '--encode', action='store_true', help='Encode decimal to hex')
+group.add_argument('-d', '--decode', action='store_true', help='Decode hex to decimal')
+parser.add_argument('value', type=str)
 args = parser.parse_args()
 
-print(hex(args.value))
+if args.encode:
+    decimal = int(args.value)
+    print(hex(decimal))
+elif args.decode:
+    hex_str = args.value.lstrip('0x')  # Remove hex prefix if present
+    decimal = int(hex_str, 16)
+    print(decimal)
+
